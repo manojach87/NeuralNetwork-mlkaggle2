@@ -16,7 +16,8 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import cross_val_score  
 from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
-
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 
 def read_file(file_name):
@@ -41,7 +42,16 @@ def visuals(trainx):
         plt.scatter(y=trainy["t1"],x=trainx['f'+str(i)],cmap='jet')
     plt.show()
 
-    sns.pairplot(testx,size=2.5)
-    plt.show()
-    
+    #sns.pairplot(testx,size=2.5)
+    #plt.show()
+
+
 visuals(trainx)
+
+def encode(series): 
+    return pd.get_dummies(series.astype(str))
+
+corr_mat = trainx.corr() 
+fig, ax = plt.subplots(figsize=(20, 12)) 
+sns.heatmap(corr_mat, vmax=1.0, square=True, ax=ax, annot=False,cmap="YlGn");
+
